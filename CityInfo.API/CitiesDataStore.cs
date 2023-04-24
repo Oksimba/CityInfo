@@ -61,7 +61,7 @@ namespace CityInfo.API
                              Id = 6,
                              Name = "The Louvre",
                              Description = "The world's largest museum." },
-                     }
+                    }
                 }
             };
         }
