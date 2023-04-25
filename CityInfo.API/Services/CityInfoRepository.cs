@@ -1,6 +1,7 @@
 ﻿using CityInfo.API.DbContexts;
 using CityInfo.API.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace CityInfo.API.Services
 {
@@ -49,6 +50,21 @@ namespace CityInfo.API.Services
         {
             return await _context.PointsOfInterests
                .Where(c => c.CityId == cityId).ToListAsync();
+        }
+
+        public async Task AddPointOfInterestForCityAsync(int cityId,
+            PointOfInterest pointOfInterest)
+        {
+            var city = await GetCityAsync(cityId, false);
+            if(city != null)
+            {
+                city.PointsOfInterest.Add(pointOfInterest);
+            }
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync() >= 0);
         }
     }
 }
