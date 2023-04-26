@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfo.API.Controllers
 {
-    [Route("api/cities/{cityId}/[controller]")]
-    [Authorize(Policy = "MustBeFromAntwerp")]
+    [Route("api/v{version:apiVersion}/cities/{cityId}/[controller]")]
+    //[Authorize(Policy = "MustBeFromAntwerp")]
+    [ApiVersion("2.0")]
     [ApiController]
     public class PointsOfInterestController : ControllerBase
     {
@@ -35,12 +36,12 @@ namespace CityInfo.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PointOfInterestDto>>> GetPointsOfInterest(int cityId)
         {
-            var cityName = User.Claims.FirstOrDefault(c => c.Type == "city")?.Value;
+            //var cityName = User.Claims.FirstOrDefault(c => c.Type == "city")?.Value;
 
-            if(!await _cityInfoRepository.CityNameMatchesCityId(cityName, cityId))
-            {
-                return Forbid();
-            }
+            //if(!await _cityInfoRepository.CityNameMatchesCityId(cityName, cityId))
+            //{
+            //    return Forbid();
+            //}
 
             try
             {
